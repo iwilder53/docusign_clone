@@ -24,5 +24,4 @@ export const { setUser } = firebaseSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 export const selectUser = state => state.firebase.user;
-
 export default firebaseSlice.reducer;

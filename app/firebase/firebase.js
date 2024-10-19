@@ -1,11 +1,13 @@
-"use client"
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { FirebaseError, initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getFirestore, collection, where, getDocs, doc, getDoc, setDoc, query, updateDoc } from "firebase/firestore";
+
 import 'firebase/firestore';
 import 'firebase/storage';
 
-import { mergeAnnotations } from '../components/MergeAnnotations/MergeAnnotations';
+import { mergeAnnotations } from '../../components/MergeAnnotations/MergeAnnotations';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAyDmBFLsYmknmeNghLz-Xw2wLIQSMNr48",
@@ -17,23 +19,26 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 // firebase.initializeApp();
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-export const auth = firebase.auth();
-export const firestore = firebase.firestore();
-export const storage = firebase.storage();
 
-const provider = new firebase.auth.GoogleAuthProvider();
 
-export const signInWithGoogle = () => {
-  auth.signInWithPopup(provider);
+const firebase = initializeApp(firebaseConfig);
+export const auth = getAuth(firebase);
+export const firestore = getFirestore(firebase);
+export const storage = getStorage(firebase);
+
+
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = async () => {
+  await signInWithPopup(auth, provider);
 };
 
 export const generateUserDocument = async (user, additionalData) => {
   if (!user) return;
-  const userRef = firestore.doc(`users/${user.uid}`);
-  const snapshot = await userRef.get();
+  const userRef = doc(firestore, `users/${user.uid}`)
+
+  const snapshot = await getDoc(userRef)
+
   if (!snapshot.exists) {
     const { email, displayName, photoURL } = user;
     try {
@@ -53,7 +58,9 @@ export const generateUserDocument = async (user, additionalData) => {
 const getUserDocument = async uid => {
   if (!uid) return null;
   try {
-    const userDocument = await firestore.doc(`users/${uid}`).get();
+    const userRef = doc(firestore, "users", auth.currentUser.uid)
+
+    const userDocument = await getDoc(userRef)
     return {
       uid,
       ...userDocument.data(),
@@ -70,48 +77,49 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
   const signedBy = [];
   const requestedTime = new Date();
   const signedTime = '';
-  firestore
-    .collection('documentsToSign')
-    .add({
-      uid,
-      email,
-      docRef,
-      emails,
-      xfdf,
-      signedBy,
-      signed,
-      requestedTime,
-      signedTime,
-    })
-    .then(function (docRef) {
-      console.log('Document written with ID: ', docRef.id);
-    })
+
+  const documentsRef = doc(firestore, `documentsToSign`, docRef.split('/')[1])
+  setDoc(documentsRef, {
+    uid,
+    email,
+    docRef,
+    emails,
+    xfdf,
+    signedBy,
+    signed,
+    requestedTime,
+    signedTime,
+  }).then(function (docRef) {
+    console.log('Document written with ID: ', docRef);
+  })
     .catch(function (error) {
       console.error('Error adding document: ', error);
     });
 };
 
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
-  const documentRef = firestore.collection('documentsToSign').doc(docId);
-  documentRef
-    .get()
+  const documentRef = doc(firestore, 'documentsToSign', docId)
+
+  getDoc(documentRef)
     .then(async doc => {
       if (doc.exists) {
         const { signedBy, emails, xfdf, docRef } = doc.data();
         if (!signedBy.includes(email)) {
           const signedByArray = [...signedBy, email];
           const xfdfArray = [...xfdf, xfdfSigned];
-          await documentRef.update({
+          await updateDoc(documentRef, {
             xfdf: xfdfArray,
             signedBy: signedByArray,
           });
 
           if (signedByArray.length === emails.length) {
             const time = new Date();
-            await documentRef.update({
+            await updateDoc(documentRef, {
               signed: true,
               signedTime: time,
             });
+
+
 
             mergeAnnotations(docRef, xfdfArray);
           }
@@ -126,19 +134,25 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
 };
 
 export const searchForDocumentToSign = async email => {
-  const documentsRef = firestore.collection('documentsToSign');
-  const query = documentsRef
-    .where('emails', 'array-contains', email)
-    .where('signed', '==', false);
 
-  const querySigned = documentsRef
-    .where('signedBy', 'array-contains', email);
+  const documentsRef = collection(firestore, 'documentsToSign')
+  const q = query(
+    documentsRef,
+    where('emails', 'array-contains', email),
+    where('signed', '==', false),
+  );
+
+
+  const querySigned = query(
+    documentsRef,
+    where('signedBy', 'array-contains', email))
+
+
+
 
   const docIds = [];
   const docIdSigned = [];
-
-  await querySigned
-    .get()
+  await getDocs(querySigned)
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const docId = doc.id;
@@ -149,8 +163,7 @@ export const searchForDocumentToSign = async email => {
       console.log('Error getting documents: ', error);
     });
 
-  await query
-    .get()
+  await getDocs(q)
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const { docRef, email, requestedTime } = doc.data();
@@ -167,16 +180,16 @@ export const searchForDocumentToSign = async email => {
 };
 
 export const searchForDocumentsSigned = async email => {
-  const documentsRef = firestore.collection('documentsToSign');
+  const documentsRef = collection(firestore, 'documentsToSign');
 
   const docIds = [];
 
-  let query = documentsRef
-    .where('email', '==', email)
-    .where('signed', '==', true);
+  let q = query(documentsRef,
+    where('email', '==', email),
+    where('signed', '==', true));
 
-  await query
-    .get()
+
+  await getDocs(q)
     .then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         const { docRef, emails, signedTime } = doc.data();
