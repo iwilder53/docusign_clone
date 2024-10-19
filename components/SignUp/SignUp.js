@@ -13,6 +13,7 @@ import {
 import 'gestalt/dist/gestalt.css';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +22,7 @@ const SignUp = () => {
   const router = useRouter()
   const createUserWithEmailAndPasswordHandler = async (event, email, password) => {
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
+      const { user } = await createUserWithEmailAndPassword(email, password);
       await generateUserDocument(user, { displayName });
 
     }
@@ -41,43 +42,52 @@ const SignUp = () => {
           <Box padding={3}>
             {error !== null && <Toast text={error} />}
             <Heading size="md">Sign up</Heading>
+
           </Box>
-          <Box padding={2}>
-            <TextField
-              id="displayName"
-              onChange={event => setDisplayName(event.value)}
-              placeholder="Enter your name"
-              label="Name"
-              value={displayName}
-              type="text"
-            />
-          </Box>
-          <Box padding={2}>
-            <TextField
-              id="email"
-              onChange={event => setEmail(event.value)}
-              placeholder="Enter your email"
-              label="Email"
-              value={email}
-              type="email"
-            />
-          </Box>
-          <Box padding={2}>
-            <TextField
-              id="password"
-              onChange={event => setPassword(event.value)}
-              placeholder="Enter your password"
-              label="Password"
-              value={password}
-              type="password"
-            />
-          </Box>
+          <form>
+
+            <Box padding={2}>
+              <TextField
+                id="displayName"
+                onChange={event => setDisplayName(event.value)}
+                placeholder="Enter your name"
+                label="Name"
+                value={displayName}
+                type="text"
+              />
+            </Box>
+
+            <Box padding={2}>
+              <TextField
+
+                id="email"
+                onChange={event => setEmail(event.value)}
+                placeholder="Enter your email"
+                label="Email"
+                value={email}
+                type="email"
+              />
+            </Box>
+            <Box padding={2}>
+              <TextField
+                autoComplete='current-password'
+                id="password"
+                onChange={event => setPassword(event.value)}
+                placeholder="Enter your password"
+                label="Password"
+                value={password}
+                type="password"
+              />
+            </Box></form>
           <Box padding={2}>
             <Button
-              onClick={event => {
-                createUserWithEmailAndPasswordHandler(event, email, password);
-                router.push('/');
-              }}
+              type='submit'
+              onClick={
+                (e) => {
+                  e.dangerouslyDisableOnNavigation();
+                  createUserWithEmailAndPasswordHandler(e, email, password);
+                  router.push('/');
+                }}
               text="Sign up"
               color="blue"
               inline

@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+
+    webpack: (config) => {
+        config.externals = [...config.externals, '@pdftron/pdfnet-node'];
+        return config;
+    },
     reactStrictMode: false,
     async headers() {
         return [

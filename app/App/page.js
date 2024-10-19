@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,15 +20,13 @@ import dynamic from 'next/dynamic';
 
 const App = () => {
   const user = useSelector(selectUser);
+
+
   const dispatch = useDispatch();
 
   useEffect(() => {
 
     onAuthStateChanged(auth, async (user) => {
-      if (!auth.currentUser) {
-        return
-      }
-
       const userData = await generateUserDocument(user);
       console.info(userData)
       console.info(user)

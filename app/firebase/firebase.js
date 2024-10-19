@@ -31,7 +31,7 @@ const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   await signInWithPopup(auth, provider);
-  
+
 };
 
 export const generateUserDocument = async (user, additionalData) => {
@@ -80,7 +80,7 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
   const signedTime = '';
 
   const documentsRef = doc(firestore, `documentsToSign`, docRef.split('/')[1])
-  setDoc(documentsRef, {
+  await setDoc(documentsRef, {
     uid,
     email,
     docRef,
@@ -101,7 +101,7 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
   const documentRef = doc(firestore, 'documentsToSign', docId)
 
-  getDoc(documentRef)
+  await getDoc(documentRef)
     .then(async doc => {
       if (doc.exists) {
         const { signedBy, emails, xfdf, docRef } = doc.data();
@@ -115,14 +115,13 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
 
           if (signedByArray.length === emails.length) {
             const time = new Date();
+
             await updateDoc(documentRef, {
               signed: true,
               signedTime: time,
             });
 
-
-
-            mergeAnnotations(docRef, xfdfArray);
+            await mergeAnnotations(docRef, xfdfArray);
           }
         }
       } else {

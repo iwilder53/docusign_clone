@@ -12,9 +12,11 @@ import './SignDocument.css';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { useRouter } from 'next/navigation';
 import { setInstance } from '../MergeAnnotations/MergeAnnotationsSlice';
+import { mergeAnnotations } from '../MergeAnnotations/MergeAnnotations';
 
 const SignDocument = () => {
   const [annotationManager, setAnnotationManager] = useState(null);
+  const [instance, setInstance] = useState(null);
   const [annotPosition, setAnnotPosition] = useState(0);
   const router = useRouter();
   const doc = useSelector(selectDocToSign);
@@ -22,16 +24,18 @@ const SignDocument = () => {
   const { docRef, docId } = doc ?? '';
   const { email } = user;
   const viewer = useRef(null);
+
   useEffect(() => {
     WebViewer(
       {
         path: 'webviewer/lib',
-        fullAPI: true
+        fullAPI: true,
+        licenseKey: 'demo:1729242579433:7e1e7d6e0300000000c0137aa39fab9df3e0a551e4c2572d4eed7df75c'
       },
       viewer.current,
     ).then(async instance => {
 
-
+      setInstance(instance);
       instance.Core.PDFNet.initialize();
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       setAnnotationManager(annotationManager);
@@ -102,6 +106,7 @@ const SignDocument = () => {
   const completeSigning = async () => {
     const xfdf = await annotationManager.exportAnnotations({ widgets: false, links: false });
     await updateDocumentToSign(docId, email, xfdf);
+    // await mergeAnnotations(docRef, xfdfArray, instance);
     router.push('/');
   }
 

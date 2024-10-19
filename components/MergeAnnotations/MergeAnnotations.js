@@ -1,22 +1,34 @@
+'use server'
+import { PDFNet } from '@pdftron/pdfnet-node';
 import { storage } from '../../app/firebase/firebase';
-import { pdfNet } from './MergeAnnotationsSlice';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+
 
 export const mergeAnnotations = async (docRef, xfdf) => {
+
   try {
-    const Core = window.Core;
-    const PDFNet = window.Core.PDFNet;
+    
+    // const Core = window.Core;
+    // Core.setWorkerPath('webviewer/lib/core');
+    PDFNet.initialize('demo:1729242579433:7e1e7d6e0300000000c0137aa39fab9df3e0a551e4c2572d4eed7df75c')
     console.log(PDFNet);
+    const storage = getStorage();
+    const storageRef = ref(storage, docRef)
 
-    Core.setWorkerPath('webviewer/lib/core');
+    const URL = await getDownloadURL(storageRef)
+      .then((url) => {
+        console.info(url)
+        // documentViewer.loadDocument(url);
+        return url;
+      });
 
 
 
-    const storageRef = storage.ref();
-    const URL = await storageRef.child(docRef).getDownloadURL();
+    // const URL = await storageRef.child(docRef).getDownloadURL();
 
     const main = async () => {
       const doc = await PDFNet.PDFDoc.createFromURL(URL);
-      doc.initSecurityHandler();
+      await doc.initSecurityHandler();
 
       let i;
       for (i = 0; i < xfdf.length; i++) {
@@ -33,9 +45,7 @@ export const mergeAnnotations = async (docRef, xfdf) => {
         type: 'application/pdf',
       });
 
-      const documentRef = storageRef.child(docRef);
-
-      documentRef.put(blob).then(function (snapshot) {
+      await uploadBytes(storageRef, blob).then(function (snapshot) {
         console.log('Uploaded the blob');
       });
     }
