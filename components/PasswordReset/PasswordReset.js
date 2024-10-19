@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 
 import { Box, Button, Toast, Container, TextField, Heading } from 'gestalt';
@@ -6,6 +7,7 @@ import 'gestalt/dist/gestalt.css';
 import { auth } from '../../app/firebase/firebase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -13,8 +15,8 @@ const PasswordReset = () => {
   const [error, setError] = useState(null);
   const router = useRouter()
   const sendResetEmail = event => {
-    auth
-      .sendPasswordResetEmail(email)
+
+    sendPasswordResetEmail(email)
       .then(() => {
         setEmailHasBeenSent(true);
         setTimeout(() => {

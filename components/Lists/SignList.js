@@ -74,7 +74,7 @@ const SignList = () => {
               </Table.Body>
             </Table>
           ) : (
-            'You do not have any documents to sign'
+            <p className=' text-gray-900'>You do not have any documents to sign</p>
           )}
         </div>
       )}
