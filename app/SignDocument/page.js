@@ -10,7 +10,7 @@ const SignDocumentPage = () => {
 
 
     return (
-        isClient && <SignDocument />
+        <SignDocument />
     )
 
 

@@ -7,7 +7,7 @@ const AssignUsers = dynamic(() => import('@/components/AssignUsers/AssignUsers')
 const AssignUsersPage = () => {
     const isClient = useIsClient();
     return (
-        isClient && <AssignUsers />
+        <AssignUsers />
     )
 }
 

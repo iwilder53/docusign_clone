@@ -12,7 +12,7 @@ const ViewDocumentPage = () => {
 
 
     return (
-        <div>   {isClient && <Profile />}</div>
+        <Profile />
     )
 
 }

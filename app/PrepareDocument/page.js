@@ -10,7 +10,7 @@ const PrepareDocumentPage = () => {
 
     const isClient = useIsClient();
     return (
-        isClient && <PrepareDocument />
+        <PrepareDocument />
     )
 }
 
