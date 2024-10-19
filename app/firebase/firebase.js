@@ -31,6 +31,7 @@ const provider = new GoogleAuthProvider();
 
 export const signInWithGoogle = async () => {
   await signInWithPopup(auth, provider);
+  
 };
 
 export const generateUserDocument = async (user, additionalData) => {

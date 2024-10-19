@@ -31,7 +31,7 @@ const SignIn = () => {
     <div className="m-16 w-1/3" >
       <Box padding={3}>
         <Container>
-          <Box padding={3}>
+          <Box padding={1}>
             {error !== null && <Toast text={error} />}
             <Heading size="md">Sign in</Heading>
           </Box>
