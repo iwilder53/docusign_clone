@@ -24,6 +24,7 @@ const ViewDocument = () => {
   useEffect(() => {
     WebViewer(
       {
+        licenseKey: process.env.PDFNET_KEY,
         path: 'webviewer/lib',
         fullAPI: true,
         disabledElements: [

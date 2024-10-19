@@ -10,16 +10,16 @@ import { mergeAnnotations } from '../../components/MergeAnnotations/MergeAnnotat
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAyDmBFLsYmknmeNghLz-Xw2wLIQSMNr48",
-  authDomain: "docusignclone.firebaseapp.com",
-  projectId: "docusignclone",
-  storageBucket: "docusignclone.appspot.com",
-  messagingSenderId: "491807205117",
-  appId: "1:491807205117:web:76f35b9931e73f4e134094"
+  apiKey: process.env.APP_API_KEY,
+  projectId: process.env.APP_PROJECT_ID,
+  appId: process.env.APP_APP_ID,
+  authDomain: process.env.APP_AUTH_DOMAIN,
+  messagingSenderId: process.env.APP_MESSAGING_SENDER_ID,
+  storageBucket: process.env.APP_STORAGE_BUCKET,
+
 };
 // Initialize Firebase
 // firebase.initializeApp();
-
 
 const firebase = initializeApp(firebaseConfig);
 export const auth = getAuth(firebase);

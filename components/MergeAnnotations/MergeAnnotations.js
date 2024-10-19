@@ -7,10 +7,10 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 export const mergeAnnotations = async (docRef, xfdf) => {
 
   try {
-    
+
     // const Core = window.Core;
     // Core.setWorkerPath('webviewer/lib/core');
-    PDFNet.initialize('demo:1729242579433:7e1e7d6e0300000000c0137aa39fab9df3e0a551e4c2572d4eed7df75c')
+    PDFNet.initialize(process.env.PDFNET_KEY)
     console.log(PDFNet);
     const storage = getStorage();
     const storageRef = ref(storage, docRef)
