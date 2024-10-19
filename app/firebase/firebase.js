@@ -10,12 +10,12 @@ import { mergeAnnotations } from '../../components/MergeAnnotations/MergeAnnotat
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: process.env.APP_API_KEY,
-  projectId: process.env.APP_PROJECT_ID,
-  appId: process.env.APP_APP_ID,
-  authDomain: process.env.APP_AUTH_DOMAIN,
-  messagingSenderId: process.env.APP_MESSAGING_SENDER_ID,
-  storageBucket: process.env.APP_STORAGE_BUCKET,
+  apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
+  projectId: process.env.NEXT_PUBLIC_APP_PROJECT_ID,
+  appId: process.env.NEXT_PUBLIC_APP_APP_ID,
+  authDomain: process.env.NEXT_PUBLIC_APP_AUTH_DOMAIN,
+  messagingSenderId: process.env.NEXT_PUBLIC_APP_MESSAGING_SENDER_ID,
+  storageBucket: process.env.NEXT_PUBLIC_APP_STORAGE_BUCKET,
 
 };
 // Initialize Firebase

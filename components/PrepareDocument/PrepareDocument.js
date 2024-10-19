@@ -47,7 +47,7 @@ const PrepareDocument = () => {
     WebViewer(
       {
         path: '/webviewer/lib',
-        licenseKey: process.env.PDFNET_KEY,
+        licenseKey: process.env.NEXT_PUBLIC_PDFNET_KEY,
         initialDoc: 'https://pdftron.s3.amazonaws.com/downloads/pl/demo-annotated.pdf',
         fullAPI: true,
         disabledElements: [

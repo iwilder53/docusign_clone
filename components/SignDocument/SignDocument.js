@@ -30,7 +30,7 @@ const SignDocument = () => {
       {
         path: 'webviewer/lib',
         fullAPI: true,
-        licenseKey: process.env.PDFNET_KEY
+        licenseKey: process.env.NEXT_PUBLIC_PDFNET_KEY
       },
       viewer.current,
     ).then(async instance => {

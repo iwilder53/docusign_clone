@@ -10,7 +10,7 @@ export const mergeAnnotations = async (docRef, xfdf) => {
 
     // const Core = window.Core;
     // Core.setWorkerPath('webviewer/lib/core');
-    PDFNet.initialize(process.env.PDFNET_KEY)
+    PDFNet.initialize(process.env.NEXT_PUBLIC_PDFNET_KEY)
     console.log(PDFNet);
     const storage = getStorage();
     const storageRef = ref(storage, docRef)
