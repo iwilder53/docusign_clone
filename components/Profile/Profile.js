@@ -1,15 +1,16 @@
 'use client';
 import React from 'react';
 import {
-  Button,
   Text,
-  Avatar,
+ 
   Row,
   Heading,
-  Box,
+
   Column,
 } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
+
+import {Box,Button,Avatar } from '@mui/material'
 import { auth } from '../../app/firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, setUser } from '../../app/firebase/firebaseSlice';
@@ -28,12 +29,17 @@ const ProfilePage = () => {
   const router = useRouter()
 
   return (
-    <Box display="flex" direction="row" paddingY={2} color={'lightGray'}>
+    <Box display="flex" direction="row" paddingY={1} color={'lightGray'}>
       <Column span={9}>
         <Box padding={3}>
-          <Link href="/" className='profileLink'><Heading size="lg">Fundasta Docs Sign</Heading></Link>
+          <Link href="/" className='profileLink'><Heading size="lg">Docs Sign </Heading></Link>
         </Box>
       </Column >
+<Row padding={3}>  <Link href="/" className='profileLink'><p className='text-slate-800' >Prepare Document</p></Link>
+<Link href="/" className='profileLink'><p className='text-slate-800'>Signed Docs</p></Link>
+      </Row>
+
+ 
       <Column span={3}>
         <Box padding={1}>
           <div className='flex flex-row'>

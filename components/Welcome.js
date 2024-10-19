@@ -7,9 +7,10 @@ import SignList from './Lists/SignList';
 import SignedList from './Lists/SignedList';
 import { resetDocToView } from './ViewDocument/ViewDocumentSlice';
 import { resetDocToSign } from './SignDocument/SignDocumentSlice';
-import { Box, Button, Container, Heading } from 'gestalt';
+import { Box, Button, Column, Container, Heading, Row, SideNavigation, Text } from 'gestalt';
 import 'gestalt/dist/gestalt.css';
 import { useRouter } from 'next/navigation';
+
 
 
 const ProfilePage = () => {
@@ -26,13 +27,18 @@ const ProfilePage = () => {
     <div>
       <Profile />
       <Container>
-        <Box padding={3}>
+        <div className='w-100%'>
+ 
+          <Column>
+          
+            <Box padding={3}>
           <Heading size="md">{`Sign Documents`}</Heading>
+          <div className=' text-gray-900'>Pending document you've been asked to sign</div>
         </Box>
         <Box padding={3}>
-          <SignList />
-        </Box>
-        <Box padding={3}>
+          <SignList />   
+        </Box> </Column></div>
+{/*         <Box padding={3}>
           <Heading size="md">{`Prepare Document`}</Heading>
         </Box>
         <Box padding={2}>
@@ -44,13 +50,15 @@ const ProfilePage = () => {
             color="blue"
             inline
           />
-        </Box>
-        <Box padding={3}>
+        </Box> */}
+
+
+{/*         <Box padding={3}>
           <Heading size="md">{`Review Signed Documents`}</Heading>
         </Box>
         <Box padding={3}>
           <SignedList />
-        </Box>
+        </Box> */}
       </Container>
     </div>
   );
