@@ -8,23 +8,28 @@ First, run the development server:
 npm install
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the project. Vercel link is not working due to an issue with CORS policy on google storage.
-Please use Sign In With Google to start, login form is broken as of now.
+
+Open [http://docusign-clone.vercel.app](http://docusign-clone.vercel.app) with your browser to see the project.
+serverless functions & cors policies might cause issues with the deployment, please try to run locally if possible.
 
 This project uses firebase services for authentication, docuement storage, as well as storage bucket to store PDF files.
+For email functionalities, the project uses nodemailer. It needs an app password to work, please refer to example.env
 
-Libraries used are 
-  - PDFTron for PDF viewving & editing
-  - gestalt for UI components
-  - firebase sdk
+Libraries used are
 
-whats working 
-  - Authentication with google only (Form fields for signing up not working yet)
-  - prepare document
-  - add users to sign
-  - view pending document signing requests
+- PDFTron for PDF viewving & editing
+- gestalt & Material UI for UI components
+- firebase sdk
 
-Email alerts for 
-  - user is requested to sign
-  - update for every user who signs
-  - when a document is signed by all users/invitees
+Features
+
+- Authentication with google
+- prepare document
+- add users to sign
+- view pending document signing requests
+
+Email alerts for
+
+- user is requested to sign
+- update for every user who signs
+- when a document is signed by all users/invitees

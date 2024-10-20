@@ -132,13 +132,32 @@ export const updateDocumentToSign = async (docId, email, xfdfSigned) => {
 
           if (signedByArray.length === emails.length) {
             const time = new Date();
-
+            const mailText =
+            `Hi, \n\n A document you requested has finished signing by ${emails}, \n`;
+          
+          const response = await sendMail({
+            email: email,
+            subject: 'New Signature Update',
+            sendTo: emails,
+            text: mailText,
+          });
             await updateDoc(documentRef, {
               signed: true,
               signedTime: time,
             });
 
+
             await mergeAnnotations(docRef, xfdfArray);
+          } else {
+            const mailText =
+            `Hi, \n\n A document you requested has been signed by ${auth.currentUser.displayName}, \n`;
+          
+          const response = await sendMail({
+            email: email,
+            subject: 'New Signature Update',
+            sendTo: emails,
+            text: mailText,
+          });
           }
         }
       } else {
