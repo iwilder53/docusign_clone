@@ -85,7 +85,7 @@ const SignIn = () => {
 
             </Box>
             <Box padding={1}>
-              <Button onClick={signInWithGoogle} text="Sign In" color="red" inline />
+              <Button onClick={signInWithGoogle} text="Sign In" color="blue" inline />
             </Box>
 
           </div >

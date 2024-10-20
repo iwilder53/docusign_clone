@@ -33,7 +33,7 @@ const ProfilePage = () => {
           
             <Box padding={3}>
           <Heading size="md">{`Sign Documents`}</Heading>
-          <div className=' text-gray-900'>Pending document you've been asked to sign</div>
+          <div className=' text-gray-900'>Pending document you&apos;ve been asked to sign</div>
         </Box>
         <Box padding={3}>
           <SignList />   

@@ -8,7 +8,6 @@ import CircularIndeterminate from '../ui/CircularProgressIndicator';
 import Visibility from '@mui/icons-material/Visibility';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { DataGrid,GridActionsCellItem } from '@mui/x-data-grid';
 
 const SignList = () => {
@@ -62,24 +61,30 @@ const SignList = () => {
       width: 200,
       valueGetter: (value,row) => "Sign"
     },
-   /*  {
+    {
       field: 'action',
       type: 'actions',
-      headerName:'View',
+      headerName: 'View',
+      width: 200,
       getActions: (params) => [
         <GridActionsCellItem
         icon={<Visibility/>}
           label="Dup"
-          onClick={handleEvent(params)}
+          onClick={(e) => {
+            e.preventDefault();
+            const { docRef, docId } = params.row;
+            dispatch(setDocToSign({ docRef, docId }));
+            router.push(`/SignDocument`);            
+          }}
         
         
       />,
 
         ]
-    } */
+    }
   ];
 
-  
+
 
   useEffect(() => {
     async function getDocs() {
@@ -93,10 +98,11 @@ const SignList = () => {
 
   return (
     <div>
-      {show ? (
-        <CircularIndeterminate show={show} accessibilityLabel="spinner" />
+      {show ?  (
+     <div className=' h-screen flex items-center justify-center'>   <CircularIndeterminate  show={show} accessibilityLabel="spinner" /></div>
       ) : (
-        <div>
+          <div>
+
           <Box sx={{ height: '100%', width: '100%' }}>
             <DataGrid
               rows={docs}
