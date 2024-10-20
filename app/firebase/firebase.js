@@ -8,6 +8,7 @@ import 'firebase/storage';
 
 import { mergeAnnotations } from '../../components/MergeAnnotations/MergeAnnotations';
 import { getStorage } from 'firebase/storage';
+import { sendMail } from '../mailer';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
@@ -90,12 +91,28 @@ export const addDocumentToSign = async (uid, email, docRef, emails) => {
     signed,
     requestedTime,
     signedTime,
-  }).then(function (docRef) {
+  }).then(async function (docRef)  {
     console.log('Document written with ID: ', docRef);
+
+
   })
     .catch(function (error) {
       console.error('Error adding document: ', error);
     });
+  
+  
+      
+    const mailText =
+      `Hi, \n\nYou have been requested to sign a document by ${auth.currentUser.displayName}, \nClick on the link to continue https://docusign-clone.vercel.app`;
+    
+    const response = await sendMail({
+      email: email,
+      subject: 'New Signature Request',
+      sendTo: emails,
+      text: mailText,
+    });
+  
+
 };
 
 export const updateDocumentToSign = async (docId, email, xfdfSigned) => {

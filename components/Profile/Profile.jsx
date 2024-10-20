@@ -31,7 +31,7 @@ const ProfilePage = () => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-row py-1 bg-slate-200">
+    <div className="flex flex-row py-1 bg-neutral-400">
       <Column span={9}>
         <Box padding={2}>
           <Link href="/" className="profileLink">
