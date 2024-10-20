@@ -3,8 +3,17 @@ const nextConfig = {
 
     webpack: (config) => {
         config.externals = [...config.externals, '@pdftron/pdfnet-node'];
+        config.module.rules.push({
+            test: /\.wasm$/,
+            type: 'javascript/auto',
+            use: 'file-loader',
+          });
+        
         return config;
+
+
     },
+ 
     reactStrictMode: false,
     async headers() {
         return [

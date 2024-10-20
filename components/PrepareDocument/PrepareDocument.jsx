@@ -11,13 +11,12 @@ import "gestalt/dist/gestalt.css";
 import "./PrepareDocument.css";
 import { getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
 import { useRouter } from "next/navigation";
-import { useIsClient } from "@/app/isClientCtx";
 import { Box, Button, Avatar } from "@mui/material";
 
 const PrepareDocument = () => {
   const [instance, setInstance] = useState(null);
   const [dropPoint, setDropPoint] = useState(null);
-  const isClient = useIsClient();
+  const [isUploading, setIsUploading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -76,6 +75,7 @@ const PrepareDocument = () => {
   }, []);
 
   const applyFields = async () => {
+    setIsUploading(true);
     const { Annotations, documentViewer } = instance.Core;
     const annotationManager = documentViewer.getAnnotationManager();
     const fieldManager = annotationManager.getFieldManager();
@@ -323,8 +323,10 @@ const PrepareDocument = () => {
     e.preventDefault();
   };
 
-  return !user ? (
-    <div></div>
+  return !user || isUploading ? (
+    <div className=" h-screen flex items-center justify-center">
+      <CircularIndeterminate />
+    </div>
   ) : (
     <div>
       <div className={"prepareDocument"}>

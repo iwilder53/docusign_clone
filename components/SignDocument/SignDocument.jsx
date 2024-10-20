@@ -12,10 +12,11 @@ import "gestalt/dist/gestalt.css";
 import "./SignDocument.css";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useRouter } from "next/navigation";
+import CircularIndeterminate from "../ui/CircularProgressIndicator";
 
 const SignDocument = () => {
   const [annotationManager, setAnnotationManager] = useState(null);
-
+  const [isUploading, setIsUploading] = useState(false);
   const [annotPosition, setAnnotPosition] = useState(0);
   const router = useRouter();
   const doc = useSelector(selectDocToSign);
@@ -103,12 +104,17 @@ const SignDocument = () => {
   };
 
   const completeSigning = async () => {
+    setIsUploading(true);
     const xfdf = await annotationManager.exportAnnotations();
     await updateDocumentToSign(docId, email, xfdf);
-    router.push("/");
+    router.replace("/");
   };
 
-  return (
+  return isUploading ? (
+    <div className=" h-screen flex items-center justify-center">
+      <CircularIndeterminate />
+    </div>
+  ) : (
     <div className={"prepareDocument"}>
       <Box display="flex" direction="row" flex="grow">
         <Column span={2}>

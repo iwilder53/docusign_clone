@@ -18,7 +18,8 @@ const SignedList = () => {
 
   useEffect(() => {
     async function fetchDocs() {
-      const docsToView = await searchForDocumentsSigned(email);
+      const docsToView = (await searchForDocumentsSigned(email)).reverse();
+
       setDocs(docsToView);
       setShow(false);
     }
