@@ -31,21 +31,21 @@ const ProfilePage = () => {
   const router = useRouter();
 
   return (
-    <div className="flex flex-row py-1 bg-slate-900">
+    <div className="flex flex-row py-1 bg-slate-900 text-white">
       <Column span={9}>
         <Box padding={2}>
           <Link href="/" className="profileLink">
-            <Heading size="lg">Docs Sign</Heading>
+            <div className=" text-white text-4xl">Docs Sign</div>
           </Link>
         </Box>
       </Column>
-      <div className="flex flex-row p-6 mx-6 content-around ">
+      <div className="flex flex-row p-6 mx-6 content-around  text-white ">
         {routes.map((element) => {
           return (
             <Link
               key={element.name}
               href={element.path}
-              className=" text-slate-900 mx-8 hover:text-zinc-400 hover:font-semibold"
+              className="  mx-8  text-white hover:text-zinc-400 hover:font-semibold font-mono"
             >
               {element.name}
             </Link>
@@ -59,11 +59,13 @@ const ProfilePage = () => {
             <div className="flex flex-row mx-4 px-4">
               {" "}
               <Box padding={1}>
-                <Avatar name={displayName} size="md" src={photoURL} />
+                <Avatar name={displayName} src={photoURL} />
               </Box>
               <Box>
-                <Text weight="bold">{displayName}</Text>
-                <Text>{email}</Text>
+                <div className=" font-bold text-white" weight="bold">
+                  {displayName}
+                </div>
+                <div className="text-white">{email}</div>
               </Box>
             </div>
             <Box padding={1}>
