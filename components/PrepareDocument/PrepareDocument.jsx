@@ -17,6 +17,7 @@ import CircularIndeterminate from "../ui/CircularProgressIndicator";
 const PrepareDocument = () => {
   const [instance, setInstance] = useState(null);
   const [dropPoint, setDropPoint] = useState(null);
+  const [viewerLoading, setViewerLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -53,6 +54,7 @@ const PrepareDocument = () => {
       },
       viewer.current
     ).then((instance) => {
+      setViewerLoading(false);
       const { iframeWindow } = instance.UI;
 
       // select only the view group
@@ -446,7 +448,13 @@ const PrepareDocument = () => {
             </Box>
           </Column>
           <Column span={10}>
-            <div className="webviewer" ref={viewer}></div>
+            {viewerLoading ? (
+              <div className=" h-screen flex items-center justify-center">
+                <CircularIndeterminate />
+              </div>
+            ) : (
+              <div className="webviewer" ref={viewer}></div>
+            )}
           </Column>
         </Box>
         <input type="file" ref={filePicker} style={{ display: "none" }} />

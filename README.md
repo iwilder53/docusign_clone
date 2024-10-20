@@ -24,7 +24,7 @@ Libraries used are
 Features
 
 - Authentication with google
-- prepare document
+- prepare document (upload and edit pdf)
 - add users to sign
 - view pending document signing requests
 
