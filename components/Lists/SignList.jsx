@@ -38,33 +38,28 @@ const SignList = () => {
     {
       field: "displayName",
       headerName: "From",
-      width: 200,
+      width: 250,
       editable: false,
       valueGetter: (value, row) => row.email.split("@")[0],
     },
     {
       field: "email",
       headerName: "Email ID",
-      width: 200,
+      width: 300,
       editable: false,
     },
     {
       field: "requestedTime",
       headerName: "Date",
       type: "date",
-      width: 200,
+      width: 120,
       valueGetter: (value, row) => new Date(row.requestedTime.toDate()),
-    },
-    {
-      type: "string",
-      width: 200,
-      valueGetter: (value, row) => "Sign",
     },
     {
       field: "action",
       type: "actions",
       headerName: "View",
-      width: 200,
+      width: 60,
       getActions: (params) => [
         <GridActionsCellItem
           key={params.row.requestedTime}
