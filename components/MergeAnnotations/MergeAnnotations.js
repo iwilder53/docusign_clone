@@ -1,19 +1,16 @@
 'use server'
+import { firebase } from '@/app/firebase/firebase';
 import { PDFNet } from '@pdftron/pdfnet-node';
-import { storage } from '../../app/firebase/firebase';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
-
+// We merge the signature on top of file here, 
+// this is throws locale error on the lambda / vercel 
 export const mergeAnnotations = async (docRef, xfdf) => {
-
   try {
-
-    // const Core = window.Core;
-    // Core.setWorkerPath('webviewer/lib/core');
     PDFNet.initialize(process.env.NEXT_PUBLIC_PDFNET_KEY)
     console.log(PDFNet);
-    const storage = getStorage();
-    const storageRef = ref(storage, docRef)
+    const storage = getStorage(firebase);
+    const storageRef =  ref(storage, docRef)
 
     const URL = await getDownloadURL(storageRef)
       .then((url) => {

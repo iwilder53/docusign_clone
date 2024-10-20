@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table, Text, Spinner } from 'gestalt';
-import 'gestalt/dist/gestalt.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { searchForDocumentsSigned } from '../../app/firebase/firebase';
-import { selectUser } from '../../app/firebase/firebaseSlice';
-import { setDocToView } from '../ViewDocument/ViewDocumentSlice';
-import { useRouter } from 'next/navigation';
-import CircularIndeterminate from '../ui/CircularProgressIndicator';
-
+import React, { useEffect, useState } from "react";
+import { Button, Table, Text, Spinner } from "gestalt";
+import "gestalt/dist/gestalt.css";
+import { useSelector, useDispatch } from "react-redux";
+import { searchForDocumentsSigned } from "../../app/firebase/firebase";
+import { selectUser } from "../../app/firebase/firebaseSlice";
+import { setDocToView } from "../ViewDocument/ViewDocumentSlice";
+import { useRouter } from "next/navigation";
+import CircularIndeterminate from "../ui/CircularProgressIndicator";
 
 const SignedList = () => {
   const user = useSelector(selectUser);
@@ -29,7 +28,10 @@ const SignedList = () => {
   return (
     <div>
       {show ? (
-     <div className=' h-screen flex items-center justify-center'>   <CircularIndeterminate  show={show} accessibilityLabel="spinner" /></div>
+        <div className=" h-screen flex items-center justify-center">
+          {" "}
+          <CircularIndeterminate show={show} accessibilityLabel="spinner" />
+        </div>
       ) : (
         <div>
           {docs.length > 0 ? (
@@ -45,19 +47,25 @@ const SignedList = () => {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {docs.map(doc => (
+                {docs.map((doc) => (
                   <Table.Row key={doc.docRef}>
                     <Table.Cell>
-                      {doc.emails.map(email => (
+                      {doc.emails.map((email) => (
                         <Text key={email}>{email}</Text>
                       ))}
                     </Table.Cell>
                     <Table.Cell>
-                      <Text>{doc.signedTime ? new Date(doc.signedTime.seconds * 1000).toDateString() : ''}</Text>
+                      <Text>
+                        {doc.signedTime
+                          ? new Date(
+                              doc.signedTime.seconds * 1000
+                            ).toDateString()
+                          : ""}
+                      </Text>
                     </Table.Cell>
                     <Table.Cell>
                       <Button
-                        onClick={event => {
+                        onClick={(event) => {
                           const { docRef, docId } = doc;
                           dispatch(setDocToView({ docRef, docId }));
                           router.push(`/ViewDocument`);
@@ -72,7 +80,9 @@ const SignedList = () => {
               </Table.Body>
             </Table>
           ) : (
-            <p className=' text-gray-900'>You do not have any documents to review</p>
+            <p className=" text-gray-900">
+              You do not have any documents to review
+            </p>
           )}
         </div>
       )}

@@ -1,18 +1,16 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { useIsClient } from '../isClientCtx';
-import dynamic from 'next/dynamic';
+import React from "react";
+import dynamic from "next/dynamic";
 
+//dynamic loading to prevent nextjs SSR
+const PrepareDocument = dynamic(
+  () => import("@/components/PrepareDocument/PrepareDocument"),
+  { ssr: false }
+);
 
-const PrepareDocument = dynamic(() => import('@/components/PrepareDocument/PrepareDocument'), { ssr: false })
 const PrepareDocumentPage = () => {
+  return <PrepareDocument />;
+};
 
-    const isClient = useIsClient();
-    return (
-        <PrepareDocument />
-    )
-}
-
-
-export default PrepareDocumentPage
+export default PrepareDocumentPage;

@@ -28,5 +28,3 @@ Email alerts for
   - user is requested to sign
   - update for every user who signs
   - when a document is signed by all users/invitees
-
-

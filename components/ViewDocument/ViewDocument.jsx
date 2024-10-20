@@ -1,16 +1,16 @@
-'use client'
-import React, { useRef, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+"use client";
+import React, { useRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import { Box, Column, Heading, Row, Stack, Button } from 'gestalt';
-import { selectDocToView } from './ViewDocumentSlice';
-import { storage } from '../../app/firebase/firebase';
-import WebViewer from '@pdftron/webviewer';
+import { Box, Column, Heading, Row, Stack, Button } from "gestalt";
+import { selectDocToView } from "./ViewDocumentSlice";
+import { storage } from "../../app/firebase/firebase";
+import WebViewer from "@pdftron/webviewer";
 
-import 'gestalt/dist/gestalt.css';
-import './ViewDocument.css';
-import { useRouter } from 'next/navigation';
-import { getDownloadURL, getStorage, ref } from 'firebase/storage';
+import "gestalt/dist/gestalt.css";
+import "./ViewDocument.css";
+import { useRouter } from "next/navigation";
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
 
 const ViewDocument = () => {
   const router = useRouter();
@@ -25,18 +25,14 @@ const ViewDocument = () => {
     WebViewer(
       {
         licenseKey: process.env.NEXT_PUBLIC_PDFNET_KEY,
-        path: 'webviewer/lib',
+        path: "webviewer/lib",
         fullAPI: true,
-        disabledElements: [
-          'ribbons',
-          'toggleNotesButton',
-          'contextMenuPopup',
-        ],
+        disabledElements: ["ribbons", "toggleNotesButton", "contextMenuPopup"],
       },
-      viewer.current,
-    ).then(async instance => {
+      viewer.current
+    ).then(async (instance) => {
       // select only the view group
-      instance.UI.setToolbarGroup('toolbarGroup-View');
+      instance.UI.setToolbarGroup("toolbarGroup-View");
 
       setInstance(instance);
       // load document
@@ -44,13 +40,11 @@ const ViewDocument = () => {
 
       // const URL = await storageRef.child(docRef).getDownloadURL();
 
-      await getDownloadURL(ref(storage, docRef))
-        .then((url) => {
-          console.info(url)
-          instance.Core.documentViewer.loadDocument(url);
-        });
-      // load document 
-
+      await getDownloadURL(ref(storage, docRef)).then((url) => {
+        console.info(url);
+        instance.Core.documentViewer.loadDocument(url);
+      });
+      // load document
     });
   }, [docRef]);
 
@@ -59,11 +53,11 @@ const ViewDocument = () => {
   };
 
   const doneViewing = async () => {
-    router.push('/');
-  }
+    router.replace("/");
+  };
 
   return (
-    <div className={'prepareDocument'}>
+    <div className={"prepareDocument"}>
       <Box display="flex" direction="row" flex="grow">
         <Column span={2}>
           <Box padding={3}>

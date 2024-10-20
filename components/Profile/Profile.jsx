@@ -31,37 +31,44 @@ const ProfilePage = () => {
   const router = useRouter();
 
   return (
-    <Box display="flex" direction="row" paddingY={1} color={"lightGray"}>
+    <div className="flex flex-row py-1 bg-slate-200">
       <Column span={9}>
-        <Box padding={3}>
+        <Box padding={2}>
           <Link href="/" className="profileLink">
-            <Heading size="lg">Docs Sign </Heading>
+            <Heading size="lg">Docs Sign</Heading>
           </Link>
         </Box>
       </Column>
-      <Row padding={3}>
+      <div className="flex flex-row p-6 mx-6 content-around">
         {routes.map((element) => {
           return (
-            <Link href={element.path} className=" text-slate-900">
-              {" "}
+            <Link
+              key={element.name}
+              href={element.path}
+              className=" text-slate-900 mx-8"
+            >
               {element.name}
             </Link>
           );
         })}
-      </Row>
+      </div>
 
-      <Column span={3}>
-        <Box padding={1}>
-          <div className="flex flex-row">
-            <Box padding={1}>
-              <Avatar name={displayName} size="md" src={photoURL} />
-            </Box>
-            <Box>
-              <Text weight="bold">{displayName}</Text>
-              <Text>{email}</Text>
-            </Box>
+      <Column span={6}>
+        <Box padding={3}>
+          <div className="flex flex-row place-content-around">
+            <div className="flex flex-row mx-4 px-4">
+              {" "}
+              <Box padding={1}>
+                <Avatar name={displayName} size="md" src={photoURL} />
+              </Box>
+              <Box>
+                <Text weight="bold">{displayName}</Text>
+                <Text>{email}</Text>
+              </Box>
+            </div>
             <Box padding={1}>
               <Button
+                variant="contained"
                 onClick={() => {
                   auth.signOut();
                   dispatch(setUser(null));
@@ -71,12 +78,14 @@ const ProfilePage = () => {
                 }}
                 accessibilityLabel="Sign out of your account"
                 text="Sign out"
-              />
+              >
+                Sign Out
+              </Button>
             </Box>
           </div>
         </Box>
       </Column>
-    </Box>
+    </div>
   );
 };
 export default ProfilePage;

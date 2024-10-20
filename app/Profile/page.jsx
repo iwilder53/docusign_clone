@@ -1,20 +1,15 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 
-import dynamic from 'next/dynamic'
-import { useIsClient } from '../isClientCtx';
+import dynamic from "next/dynamic";
 
-
-const Profile = dynamic(() => import('@/components/Profile/Profile'), { ssr: false })
+//dynamic loading to prevent nextjs SSR
+const Profile = dynamic(() => import("@/components/Profile/Profile"), {
+  ssr: false,
+});
 
 const ViewDocumentPage = () => {
-    const isClient = useIsClient();
+  return <Profile />;
+};
 
-
-    return (
-        <Profile />
-    )
-
-}
-
-export default ViewDocumentPage
+export default ViewDocumentPage;

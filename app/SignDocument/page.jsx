@@ -1,19 +1,16 @@
-'use client'
-import React from 'react'
-import { useIsClient } from '../isClientCtx'
-import dynamic from 'next/dynamic'
+"use client";
+import React from "react";
 
-const SignDocument = dynamic(() => import('@/components/SignDocument/SignDocument'), { ssr: false })
+import dynamic from "next/dynamic";
+
+//dynamic loading to prevent nextjs SSR
+const SignDocument = dynamic(
+  () => import("@/components/SignDocument/SignDocument"),
+  { ssr: false }
+);
 
 const SignDocumentPage = () => {
-    const isClient = useIsClient();
+  return <SignDocument />;
+};
 
-
-    return (
-        <SignDocument />
-    )
-
-
-}
-
-export default SignDocumentPage
+export default SignDocumentPage;
