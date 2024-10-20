@@ -13,7 +13,7 @@ import { auth, generateUserDocument } from '@/app/firebase/firebase';
 import { setUser, selectUser } from '@/app/firebase/firebaseSlice';
 
 import './app.css';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {  onAuthStateChanged } from "firebase/auth";
 import dynamic from 'next/dynamic';
 
 
@@ -23,21 +23,20 @@ const App = () => {
 
 
   const dispatch = useDispatch();
-
+  //this can be imporved
   useEffect(() => {
-
+    //set the user provider with user data
     onAuthStateChanged(auth, async (user) => {
       const userData = await generateUserDocument(user);
       console.info(userData)
       console.info(user)
       console.info(`auth: ${auth.currentUser}`)
       const { uid, displayName, email, photoURL } = auth.currentUser;
-
       dispatch(setUser({ uid, displayName, email, photoURL }));
 
     });
   }, [dispatch]);
-
+//check login status and return component
   return user ? (
 
     <Welcome path="/" />
@@ -47,8 +46,6 @@ const App = () => {
     <div >
       <Header />
       <SignIn path="/" />
-      {/*    <SignUp path="signUp" /> */}
-      {/*       <PasswordReset path="passwordReset" /> */}
     </div>
   );
 };

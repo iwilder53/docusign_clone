@@ -12,6 +12,7 @@ import "./PrepareDocument.css";
 import { getStorage, ref as storageRef, uploadBytes } from "firebase/storage";
 import { useRouter } from "next/navigation";
 import { Box, Button, Avatar } from "@mui/material";
+import CircularIndeterminate from "../ui/CircularProgressIndicator";
 
 const PrepareDocument = () => {
   const [instance, setInstance] = useState(null);

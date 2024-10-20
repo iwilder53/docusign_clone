@@ -1,18 +1,12 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 
 import App from "./App/page";
-// import { configureBucketCors } from "./setupCors";
-
 import { IsClientCtxProvider } from "./isClientCtx";
 
+//Client context needed to delay ssr on certain components
 export default function Home() {
-  // configureBucketCors
-
   return (
     <IsClientCtxProvider>
-      {" "}
       <App />
     </IsClientCtxProvider>
   );
