@@ -52,7 +52,7 @@ const PrepareDocument = () => {
       },
       viewer.current
     ).then((instance) => {
-      setViewerLoading(false);
+
       const { iframeWindow } = instance.UI;
 
       // select only the view group
