@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth, signInWithGoogle } from "../../app/firebase/firebase";
+import { auth, signInWithGoogle } from "../../app/services/firebase/firebase";
 import {
   Box,
   Toast,

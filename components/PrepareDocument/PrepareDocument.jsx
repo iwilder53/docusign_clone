@@ -4,8 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { Column, Heading, Text, SelectList } from "gestalt";
 import { selectAssignees, resetSignee } from "../Assign/AssignSlice";
-import { storage, addDocumentToSign } from "../../app/firebase/firebase";
-import { selectUser } from "../../app/firebase/firebaseSlice";
+import {
+  storage,
+  addDocumentToSign,
+} from "../../app/services/firebase/firebase";
+import { selectUser } from "../../app/services/firebase/firebaseSlice";
 import WebViewer from "@pdftron/webviewer";
 import "gestalt/dist/gestalt.css";
 import "./PrepareDocument.css";

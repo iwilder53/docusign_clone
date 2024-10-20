@@ -1,8 +1,8 @@
-'use client'
+"use client";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Provider } from 'react-redux';
-import store from "./store/store";
+import { Provider } from "react-redux";
+import store from "./services/store/store";
 import { IsClientCtxProvider } from "./isClientCtx";
 
 const geistSans = localFont({
@@ -16,13 +16,10 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Provider store={store}>
-
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50`}
         >

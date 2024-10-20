@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchForDocumentToSign } from "../../app/firebase/firebase";
-import { selectUser } from "../../app/firebase/firebaseSlice";
+import { searchForDocumentToSign } from "../../app/services/firebase/firebase";
+import { selectUser } from "../../app/services/firebase/firebaseSlice";
 import { setDocToSign } from "../SignDocument/SignDocumentSlice";
 import { useRouter } from "next/navigation";
 import CircularIndeterminate from "../ui/CircularProgressIndicator";

@@ -8,8 +8,8 @@ import SignIn from "@/components/SignIn/SignIn";
 import Header from "@/components/Header";
 
 import Welcome from "@/components/Welcome";
-import { auth, generateUserDocument } from "@/app/firebase/firebase";
-import { setUser, selectUser } from "@/app/firebase/firebaseSlice";
+import { auth, generateUserDocument } from "@/app/services/firebase/firebase";
+import { setUser, selectUser } from "@/app/services/firebase/firebaseSlice";
 
 import "./app.css";
 import { onAuthStateChanged } from "firebase/auth";

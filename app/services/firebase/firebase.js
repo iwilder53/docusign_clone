@@ -15,8 +15,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import { getStorage } from "firebase/storage";
 
-import { mergeAnnotations } from "../../components/MergeAnnotations/MergeAnnotations";
-import { sendMail } from "../mailer";
+import { mergeAnnotations } from "../../../components/MergeAnnotations/MergeAnnotations";
+import { sendMail } from "../mailer/mailer";
 
 //set these in accordance with .env
 const firebaseConfig = {

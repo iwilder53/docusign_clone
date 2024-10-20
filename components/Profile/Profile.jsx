@@ -4,9 +4,9 @@ import { Text, Row, Heading, Column } from "gestalt";
 import "gestalt/dist/gestalt.css";
 
 import { Box, Button, Avatar } from "@mui/material";
-import { auth } from "../../app/firebase/firebase";
+import { auth } from "../../app/services/firebase/firebase";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../app/firebase/firebaseSlice";
+import { setUser } from "../../app/services/firebase/firebaseSlice";
 import { resetSignee } from "../Assign/AssignSlice";
 import "./Profile.css";
 import Link from "next/link";

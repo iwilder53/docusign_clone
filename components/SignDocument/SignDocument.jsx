@@ -5,8 +5,8 @@ import { Box, Button } from "@mui/material";
 
 import { Column, Heading, Row, Stack } from "gestalt";
 import { selectDocToSign } from "./SignDocumentSlice";
-import { updateDocumentToSign } from "../../app/firebase/firebase";
-import { selectUser } from "../../app/firebase/firebaseSlice";
+import { updateDocumentToSign } from "../../app/services/firebase/firebase";
+import { selectUser } from "../../app/services/firebase/firebaseSlice";
 import WebViewer from "@pdftron/webviewer";
 import "gestalt/dist/gestalt.css";
 import "./SignDocument.css";
