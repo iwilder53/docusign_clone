@@ -52,7 +52,6 @@ const PrepareDocument = () => {
       },
       viewer.current
     ).then((instance) => {
-
       const { iframeWindow } = instance.UI;
 
       // select only the view group
@@ -446,13 +445,7 @@ const PrepareDocument = () => {
             </Box>
           </Column>
           <Column span={10}>
-            {viewerLoading ? (
-              <div className=" h-screen flex items-center justify-center">
-                <CircularIndeterminate />
-              </div>
-            ) : (
-              <div className="webviewer" ref={viewer}></div>
-            )}
+            <div className="webviewer" ref={viewer}></div>
           </Column>
         </Box>
         <input type="file" ref={filePicker} style={{ display: "none" }} />
