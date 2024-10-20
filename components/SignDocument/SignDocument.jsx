@@ -1,22 +1,21 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Button } from "@mui/material";
 
-import { Box, Column, Heading, Row, Stack, Button } from "gestalt";
+import { Column, Heading, Row, Stack } from "gestalt";
 import { selectDocToSign } from "./SignDocumentSlice";
-import { storage, updateDocumentToSign } from "../../app/firebase/firebase";
+import { updateDocumentToSign } from "../../app/firebase/firebase";
 import { selectUser } from "../../app/firebase/firebaseSlice";
-import WebViewer, { WebViewerInstance } from "@pdftron/webviewer";
+import WebViewer from "@pdftron/webviewer";
 import "gestalt/dist/gestalt.css";
 import "./SignDocument.css";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useRouter } from "next/navigation";
-import { setInstance } from "../MergeAnnotations/MergeAnnotationsSlice";
-import { mergeAnnotations } from "../MergeAnnotations/MergeAnnotations";
 
 const SignDocument = () => {
   const [annotationManager, setAnnotationManager] = useState(null);
-  const [instance, setInstance] = useState(null);
+
   const [annotPosition, setAnnotPosition] = useState(0);
   const router = useRouter();
   const doc = useSelector(selectDocToSign);
@@ -34,7 +33,6 @@ const SignDocument = () => {
       },
       viewer.current
     ).then(async (instance) => {
-      setInstance(instance);
       instance.Core.PDFNet.initialize();
       const { documentViewer, annotationManager, Annotations } = instance.Core;
       setAnnotationManager(annotationManager);
@@ -125,24 +123,30 @@ const SignDocument = () => {
                     onClick={nextField}
                     accessibilityLabel="next field"
                     text="Next field"
-                    iconEnd="arrow-forward"
-                  />
+                    variant="outlined"
+                  >
+                    Next Field
+                  </Button>
                 </Box>
                 <Box padding={2}>
                   <Button
                     onClick={prevField}
                     accessibilityLabel="Previous field"
                     text="Previous field"
-                    iconEnd="arrow-back"
-                  />
+                    variant="outlined"
+                  >
+                    Previous Field
+                  </Button>
                 </Box>
                 <Box padding={2}>
                   <Button
                     onClick={completeSigning}
                     accessibilityLabel="complete signing"
                     text="Complete signing"
-                    iconEnd="compose"
-                  />
+                    variant="contained"
+                  >
+                    Finish
+                  </Button>
                 </Box>
               </Stack>
             </Row>

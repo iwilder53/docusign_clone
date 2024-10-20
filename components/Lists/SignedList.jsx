@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Text, Spinner } from "gestalt";
+import { Table, Text } from "gestalt";
 import "gestalt/dist/gestalt.css";
 import { useSelector, useDispatch } from "react-redux";
 import { searchForDocumentsSigned } from "../../app/firebase/firebase";
@@ -7,7 +7,7 @@ import { selectUser } from "../../app/firebase/firebaseSlice";
 import { setDocToView } from "../ViewDocument/ViewDocumentSlice";
 import { useRouter } from "next/navigation";
 import CircularIndeterminate from "../ui/CircularProgressIndicator";
-
+import { Button } from "@mui/material";
 const SignedList = () => {
   const user = useSelector(selectUser);
   const { email } = user;
@@ -65,15 +65,17 @@ const SignedList = () => {
                     </Table.Cell>
                     <Table.Cell>
                       <Button
+                        variant="contained"
                         onClick={(event) => {
                           const { docRef, docId } = doc;
                           dispatch(setDocToView({ docRef, docId }));
                           router.push(`/ViewDocument`);
                         }}
-                        text="View"
-                        color="blue"
-                        inline
-                      />
+                        accessibilityLabel="Sign out of your account"
+                        text="Sign out"
+                      >
+                        Open
+                      </Button>
                     </Table.Cell>
                   </Table.Row>
                 ))}

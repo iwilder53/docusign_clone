@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Box,
-  Button,
   Container,
   Heading,
   TextField,
@@ -12,6 +11,7 @@ import {
   Toast,
 } from "gestalt";
 import "gestalt/dist/gestalt.css";
+import { Button } from "@mui/material";
 import { addSignee, selectAssignees } from "./AssignSlice";
 import { useRouter } from "next/navigation";
 
@@ -22,6 +22,7 @@ const Assign = () => {
   const assignees = useSelector(selectAssignees);
   const dispatch = useDispatch();
   const router = useRouter();
+
   const prepare = () => {
     if (assignees.length > 0) {
       router.push(`/PrepareDocument`);
@@ -67,16 +68,19 @@ const Assign = () => {
               type="email"
             />
           </Box>
-          <Box padding={2}>
+          <div className="p-2">
+            {" "}
             <Button
+              accessibilityLabel="add user to sign the document"
+              text="add user"
+              variant="contained"
               onClick={(event) => {
                 addUser(displayName, email);
               }}
-              text="Add user"
-              color="blue"
-              inline
-            />
-          </Box>
+            >
+              Add User
+            </Button>
+          </div>
           <Box padding={2}>
             <Table>
               <Table.Header>
@@ -104,7 +108,14 @@ const Assign = () => {
             </Table>
           </Box>
           <Box padding={2}>
-            <Button onClick={prepare} text="Continue" color="blue" inline />
+            <Button
+              accessibilityLabel="add continue to prepare the document"
+              variant="outlined"
+              onClick={prepare}
+              text="Continue"
+            >
+              Continue
+            </Button>
           </Box>
           <Box
             fit

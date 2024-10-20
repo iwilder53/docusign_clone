@@ -3,11 +3,9 @@ import React, { useRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { Box, Column, Heading, Row, Stack, Button } from "gestalt";
-import { selectDocToView } from "./ViewDocumentSlice";
-import { storage } from "../../app/firebase/firebase";
-import WebViewer from "@pdftron/webviewer";
-
 import "gestalt/dist/gestalt.css";
+import { selectDocToView } from "./ViewDocumentSlice";
+import WebViewer from "@pdftron/webviewer";
 import "./ViewDocument.css";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";

@@ -39,13 +39,13 @@ const ProfilePage = () => {
           </Link>
         </Box>
       </Column>
-      <div className="flex flex-row p-6 mx-6 content-around">
+      <div className="flex flex-row p-6 mx-6 content-around ">
         {routes.map((element) => {
           return (
             <Link
               key={element.name}
               href={element.path}
-              className=" text-slate-900 mx-8"
+              className=" text-slate-900 mx-8 hover:text-zinc-400 hover:font-semibold"
             >
               {element.name}
             </Link>
@@ -68,7 +68,6 @@ const ProfilePage = () => {
             </div>
             <Box padding={1}>
               <Button
-                variant="contained"
                 onClick={() => {
                   auth.signOut();
                   dispatch(setUser(null));
@@ -76,6 +75,7 @@ const ProfilePage = () => {
 
                   router.push("/");
                 }}
+                variant="contained"
                 accessibilityLabel="Sign out of your account"
                 text="Sign out"
               >
