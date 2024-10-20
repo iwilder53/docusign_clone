@@ -324,7 +324,7 @@ const PrepareDocument = () => {
     e.preventDefault();
   };
 
-  return !user || isUploading ? (
+  return !user ? (
     <div className=" h-screen flex items-center justify-center">
       <CircularIndeterminate />
     </div>
@@ -438,7 +438,7 @@ const PrepareDocument = () => {
                       iconEnd="send"
                       variant="outlined"
                     >
-                      Send
+                      {isUploading ? "Uploading" : "Send"}
                     </Button>
                   </Box>
                 </div>
