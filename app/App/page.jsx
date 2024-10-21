@@ -25,6 +25,10 @@ const App = () => {
   useEffect(() => {
     //set the user provider with user data
     onAuthStateChanged(auth, async (user) => {
+      if (!auth.currentUser) {
+        setLoading(false);
+        return;
+      }
       const userData = await generateUserDocument(user);
       console.info(userData);
       console.info(user);
